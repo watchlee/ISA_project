@@ -55,17 +55,15 @@ public class inComingReceiver extends BroadcastReceiver {
         else if (intent.getStringExtra(TelephonyManager.EXTRA_STATE).equals(TelephonyManager.EXTRA_STATE_IDLE))
         {
             MainActivity.setTextView(phoneNumber+"中斷通話!");
-            if(flag = true) {
+            if(flag== true)
+            {
                 Intent call_intent = new Intent(context, Call_Service.class);
                 context.startService(call_intent);
                 flag = false;
             }
 
         }
-        else
-        {
-            MainActivity.setTextView("這是啥情況?\n");
-        }
+
 
 
 
@@ -78,31 +76,6 @@ public class inComingReceiver extends BroadcastReceiver {
 
     }
 
-
-    private  ITelephony getITelephony(Context context) {
-        TelephonyManager mTelephonyManager = (TelephonyManager)context.getSystemService(Context.TELEPHONY_SERVICE);
-
-        Class c = TelephonyManager.class;
-        Method getITelephonyMethod = null;
-        try {
-            getITelephonyMethod = c.getDeclaredMethod("getITelephony",
-                    (Class[]) null); // 获取声明的方法
-            getITelephonyMethod.setAccessible(true);
-        } catch (SecurityException e) {
-            e.printStackTrace();
-        } catch (NoSuchMethodException e) {
-            e.printStackTrace();
-        }
-
-        try {
-            ITelephony iTelephony = (ITelephony) getITelephonyMethod.invoke(
-                    mTelephonyManager, (Object[]) null); // 获取实例
-            return iTelephony;
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
 
 
 
