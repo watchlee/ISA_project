@@ -28,11 +28,9 @@ public class inComingReceiver extends BroadcastReceiver {
     public inComingReceiver() {
     }
 
-    private static final String TAG = null;
+
     private static String phoneNumber = null;
-    private static String contact_num = null;
-    private static String contact_name = null;
-    private static String info = null;
+    private static Boolean flag = false;
 
 
     @Override
@@ -46,17 +44,23 @@ public class inComingReceiver extends BroadcastReceiver {
 
             MainActivity.setTextView("來電號碼 : " + phoneNumber + "\n");
             /*當媽媽來電則開始啟動Service*/
-
+            if(phoneNumber.equals("0932614079")) {
             /*啟動打電話 function*/
-            Intent call_intent = new Intent(context,Call_Service.class);
-            context.startService(call_intent);
+                flag = true;
 
+            }
 
 
         }
         else if (intent.getStringExtra(TelephonyManager.EXTRA_STATE).equals(TelephonyManager.EXTRA_STATE_IDLE))
         {
             MainActivity.setTextView(phoneNumber+"中斷通話!");
+            if(flag = true) {
+                Intent call_intent = new Intent(context, Call_Service.class);
+                context.startService(call_intent);
+                flag = false;
+            }
+
         }
         else
         {
