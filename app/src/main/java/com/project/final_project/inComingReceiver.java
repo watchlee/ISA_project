@@ -11,6 +11,7 @@ package com.project.final_project;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 
 import android.os.Handler;
@@ -33,49 +34,49 @@ public class inComingReceiver extends BroadcastReceiver {
     private static String contact_name = null;
     private static String info = null;
 
+
     @Override
     public void onReceive(Context context, Intent intent) {
         // TODO: This method is called when the BroadcastReceiver is receiving
         // an Intent broadcast.
 
 
+        if (intent.getStringExtra(TelephonyManager.EXTRA_STATE).equals(TelephonyManager.EXTRA_STATE_RINGING)) {
+            phoneNumber = intent.getStringExtra(TelephonyManager.EXTRA_INCOMING_NUMBER);
+
+            MainActivity.setTextView("來電號碼 : " + phoneNumber + "\n");
+            /*當媽媽來電則開始啟動Service*/
+
+            /*啟動打電話 function*/
+            Intent call_intent = new Intent(context,Call_Service.class);
+            context.startService(call_intent);
 
 
 
-
-        //监听电话服务
-        TelephonyManager telephony = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
-        CustomPhoneStateListener customPhoneStateListener = new CustomPhoneStateListener();
-        telephony.listen(customPhoneStateListener, PhoneStateListener.LISTEN_CALL_STATE);
-
-
-        //接收intent对象
-        Bundle bundle = intent.getExtras();
-        //获取来电号码
-
-
-        //获取来电号码
-        phoneNumber = bundle.getString("incoming_number");
-
-
-        contact_num = phoneNumber;
-
-
-                info = "主人，来电话啦！";
-        try {
-            if (contact_num.toString().equals("0932614079")) {
-                //更新TextView
-                MainActivity.setTextView("注意:\t" + info + "\n" + "号码:\t" + contact_num + "\n");
-
-            }
-        } catch (java.lang.NullPointerException e) {
-
-
-            MainActivity.setTextView("注意: 來電中斷\t");
         }
+        else if (intent.getStringExtra(TelephonyManager.EXTRA_STATE).equals(TelephonyManager.EXTRA_STATE_IDLE))
+        {
+            MainActivity.setTextView(phoneNumber+"中斷通話!");
+        }
+        else
+        {
+            MainActivity.setTextView("這是啥情況?\n");
+        }
+
+
+
+
+
+
+
+
+
+
     }
+
+
     private  ITelephony getITelephony(Context context) {
-        TelephonyManager mTelephonyManager = (TelephonyManager) context.getSystemService(Context.TELECOM_SERVICE);
+        TelephonyManager mTelephonyManager = (TelephonyManager)context.getSystemService(Context.TELEPHONY_SERVICE);
 
         Class c = TelephonyManager.class;
         Method getITelephonyMethod = null;
@@ -101,38 +102,6 @@ public class inComingReceiver extends BroadcastReceiver {
 
 
 
-
-    public class CustomPhoneStateListener extends PhoneStateListener {
-
-
-
-        private static final String TAG = "CustomPhoneStateListener";
-
-        @Override
-        public void onCallStateChanged(int state, String incomingNumber){
-
-            Log.v(TAG, "WE ARE INSIDE!!!!!!!!!!!");
-            Log.v(TAG, incomingNumber);
-            //检测来电的状态
-            switch(state){
-                case TelephonyManager.CALL_STATE_RINGING:
-
-                    Log.d(TAG, "RINGING");
-                    break;
-                case TelephonyManager.CALL_STATE_IDLE:
-                    Log.d(TAG, "IDLE");
-                    break;
-                case TelephonyManager.CALL_STATE_OFFHOOK:
-                    Log.d(TAG, "OFFHOOK");
-                    break;
-            }
-
-
-        }
-
-
-
-    }
 
 
 
