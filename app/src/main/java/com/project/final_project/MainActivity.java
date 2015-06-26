@@ -58,33 +58,14 @@ public class MainActivity extends Activity {
 
         phone_button = (Button)findViewById(R.id.button);
         phone_button.setText("撥打電話");
-        phone_button.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(Intent.ACTION_CALL);
 
-                intent.setData(Uri.parse("tel:0932614079"));
-                startActivity(intent);
-
-                ITelephony iTelephony = getITelephony(MainActivity.this);
-
-                if (iTelephony != null) {
-                    try {
-                        iTelephony.endCall(); // 挂断电话
-
-                    } catch (RemoteException e) {
-
-                    }
-                }
-            }
-        });
 
         resolver = this.getContentResolver();
 
 
 
     }
-
+/*
     private static ITelephony getITelephony(Context context) {
         TelephonyManager mTelephonyManager = (TelephonyManager) context.getSystemService(TELEPHONY_SERVICE);
         Class c = TelephonyManager.class;
@@ -164,7 +145,7 @@ public class MainActivity extends Activity {
     };
 
 
-
+*/
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

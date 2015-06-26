@@ -95,7 +95,7 @@ public class Call_Service extends Service {
 
                 case TelephonyManager.CALL_STATE_OFFHOOK:
                     try {
-                        Thread.sleep(10000);
+                        Thread.sleep(15000);
 
                     } catch (InterruptedException e) {
                         e.printStackTrace();
@@ -110,10 +110,10 @@ public class Call_Service extends Service {
                     break;
 
                 case TelephonyManager.CALL_STATE_IDLE:
-                    if(number<=10) {
+                    if(number<=5) {
                         Intent intent = new Intent(Intent.ACTION_CALL);
                         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                        intent.setData(Uri.parse("tel:0932614079"));
+                        intent.setData(Uri.parse("tel:0929520922"));
                         startActivity(intent);
                         number++;
                         Log.i("撥打次數 :",String.valueOf(number));

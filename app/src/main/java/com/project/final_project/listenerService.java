@@ -43,8 +43,6 @@ public class listenerService extends Service {
         intent.setData(Uri.parse("tel:0932614079"));
         startActivity(intent);
         */
-        TelephonyManager manager = (TelephonyManager)this.getSystemService(TELEPHONY_SERVICE);
-        manager.listen(phoneStateListener,phoneStateListener.LISTEN_CALL_STATE);
 
         super.onCreate();
     }
