@@ -34,6 +34,7 @@ public class Call_Service extends Service {
     public void onCreate() {
         TelephonyManager manager = (TelephonyManager)this.getSystemService(TELEPHONY_SERVICE);
         manager.listen(phoneStateListener,phoneStateListener.LISTEN_CALL_STATE);
+        stopSelf();
         super.onCreate();
     }
 
@@ -82,15 +83,7 @@ public class Call_Service extends Service {
 
             switch (state) {
                 case TelephonyManager.CALL_STATE_RINGING:
-                    iTelephony = getITelephony(getApplicationContext()); //获取电话接口
-                    if (iTelephony != null) {
-                        try {
-                            iTelephony.endCall(); // 挂断电话
 
-                        } catch (RemoteException e) {
-
-                        }
-                    }
                     break;
 
                 case TelephonyManager.CALL_STATE_OFFHOOK:
