@@ -29,8 +29,8 @@ public class MainActivity extends Activity {
     public static String IP = null;
     private Button start_button = null;
     private Button stop_button = null;
-    private Button ok_button = null;
-    private Button cancel_button = null;
+
+
 
     private Button phone_button = null;
 

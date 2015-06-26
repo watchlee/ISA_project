@@ -44,7 +44,7 @@ public class inComingReceiver extends BroadcastReceiver {
 
             MainActivity.setTextView("來電號碼 : " + phoneNumber + "\n");
             /*當媽媽來電則開始啟動Service*/
-            if(phoneNumber.equals("0932614079")) {
+            if(phoneNumber.equals("0932614079")||phoneNumber.equals("0939738271")||phoneNumber.equals("0929520922")) {
             /*啟動打電話 function*/
                 flag = true;
 
